@@ -91,7 +91,6 @@ function initDBConnection() {
 initDBConnection();
 
 app.get('/', routes.index);
-app.get('/admin', routes.admin);
 
 function createResponseData(id, name, value, attachments) {
 
