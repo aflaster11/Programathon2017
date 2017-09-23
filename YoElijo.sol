@@ -42,20 +42,20 @@ contract ProcesoVotacion is owned{
     function addVotante (address _nuevoVotante, bytes32 _correoVotante) onlyOwner{
       uint id = votanteId[_nuevoVotante];
       if(id == 0){
-         votanteId[_nuevoVotante] = votante.length;
-         id = votante.length++;
+         votanteId[_nuevoVotante] = votantes.length;
+         id = votantes.length++;
       }
-      votante[id] = new Votante(_nuevoVotante, _correoVotante);
-      votante[id].transferOwnership(_nuevoVotante);
+      votantes[id] = new Votante(_nuevoVotante, _correoVotante);
+      votantes[id].transferOwnership(_nuevoVotante);
     }
 
     function delVotante (address _victima) onlyOwner{
         require(votanteId[_victima] != 0);
-        for(uint i = memberId[_target]; i < members.length-1; ++i){
-          members[i] = members[i+1];
+        for(uint i = votanteId[_target]; i < votantes.length-1; ++i){
+          votantes[i] = votantes[i+1];
         }
-        delete members[members.length-1];
-        members.length--;
+        delete votantes[votantes.length-1];
+        votantes.length--;
     }
 
 }
