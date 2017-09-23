@@ -8,6 +8,7 @@ var express = require('express'),
     http = require('http'),
     path = require('path'),
     fs = require('fs');
+    const nodemailer = require('nodemailer');
 
 var app = express();
 
@@ -18,7 +19,8 @@ var cloudant;
 var fileToUpload;
 
 var dbCredentials = {
-    dbName: 'my_sample_db'
+    dbName: 'usuarios_pass',
+    dbAdmin: 'admin_pass'
 };
 
 var bodyParser = require('body-parser');
