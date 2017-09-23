@@ -91,7 +91,9 @@ function initDBConnection() {
 initDBConnection();
 
 app.get('/', routes.index);
-
+app.get('/admin', function(req, res) {
+  res.send('hello world');
+});
 function createResponseData(id, name, value, attachments) {
 
     var responseData = {
