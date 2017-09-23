@@ -32,15 +32,20 @@ contract ProcesoVotacion is owned{
       bytes32 correoElectronico;
       address direccionEth;
       mapping (bytes32 => address) dirToken;
+
+      function votante(address _nuevoVotante, bytes32 _correoVotante){
+        direccionEth = _nuevoVotante;
+        correoElectronico = _correoVotante;
+      }
     }
 
-    function addVotante (address _nuevoVotante, bytes32 _nombreVotante, bytes32 _correoVotante) onlyOwner{
+    function addVotante (address _nuevoVotante, bytes32 _correoVotante) onlyOwner{
       uint id = votanteId[_nuevoVotante];
       if(id == 0){
          votanteId[_nuevoVotante] = votante.length;
          id = votante.length++;
       }
-      votante[id] = new Votante(_nuevoVotante, _nombreVotante, _correoVotante);
+      votante[id] = new Votante(_nuevoVotante, _correoVotante);
       votante[id].transferOwnership(_nuevoVotante);
     }
 
