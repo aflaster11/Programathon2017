@@ -273,7 +273,7 @@ app.post('/api/favorites/attach', multipartMiddleware, function(request, respons
 app.post('/api/favorites', function(request, response) {
 
     console.log("Create Invoked..");
-    console.log("Name: " + request.body.name);
+    console.log("Nombre del proceso elctoral: " + request.body.name);
     console.log("Value: " + request.body.value);
 
     // var id = request.body.id;
