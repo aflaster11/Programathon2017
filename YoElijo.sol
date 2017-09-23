@@ -19,17 +19,17 @@ contract owned {
 
 contract TokenDeVot is owned{
     address dir;
-    
+
     function TokenDeVot(address _dir){
         dir = _dir;
     }
-    
+
     event transferToken(address _form, address _to);
-    
+
     function trasferForm(Votador _from, Opcion _to){
         _to.addToken(_from.getToken());
     }
-    
+
     function getDir() public returns (address){
         return dir;
     }
@@ -37,27 +37,27 @@ contract TokenDeVot is owned{
 
 contract manejadorDeTokens is owned{
     TokenDeVot[] public tokensDeVot;
-    
+
     function addToken(TokenDeVot t) public{
         tokensDeVot[tokensDeVot.length++] = t;
     }
-    
+
     function getToken() public returns (TokenDeVot) {
         return tokensDeVot[tokensDeVot.length-1];
     }
-    
+
     function removeToken() public{
-        delete tokensDeVot[tokensDeVot.length-1]; 
+        delete tokensDeVot[tokensDeVot.length-1];
     }
 }
 
-contract Votador is manejadorDeTokens{
+contract Votante is manejadorDeTokens{
 }
 
 contract Opcion is manejadorDeTokens{
     bytes32 nombre;
-    mapping(address => Votador) seguidores;
-    
+    mapping(address => Votante) seguidores;
+
 }
 
 contract ProcesoVotacion is owned{
@@ -100,5 +100,7 @@ contract ProcesoVotacion is owned{
         delete votantes[votantes.length-1];
         votantes.length--;
     }
+
+
 
 }
