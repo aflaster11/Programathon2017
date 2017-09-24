@@ -19,22 +19,24 @@ var app = express();
 var connection = mysql.createConnection({
   host     : '52.15.75.193',
   user     : 'remote',
-  password : 'remote'
+  password : 'remote',
+  database : 'foo'
 });
 
-connection.connect(function(err){
-    var correo = 'Correo';
-    var pass = 'Pass';
-    if(err) {
-        console.log('error');
-    };
-    console.log('DONE');
-    var sql ="INSERT INTO USERS VALUES(correo1, pass));";
-    connection.query(sql, function (err, result) {
-        if (err) console.log(err);
-           console.log("1 record inserted");
-        });
-});
+connection.connect();
+
+app.get('/addUser'){
+    var sql = 'S';
+    connection.query(sql, function(err, result){
+        res.send('Anadir usuario');
+    });
+}
+app.get('/addAdmin'){
+    var sql = '';
+    connection.query(sql, function(err, result){
+        res.send('Anadir usuario');
+    });
+}
 
 
 // get the app environment from Cloud Foundry
