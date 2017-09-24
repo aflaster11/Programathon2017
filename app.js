@@ -102,7 +102,7 @@ app.get('/login', function (req, res) {
 })
 //Cambios Paulo
 app.use('/admin', function(req, res){
-    res.send('hello world');
+    res.render('login.html', { title: 'Hey'})
 });
 //Cambios
 
