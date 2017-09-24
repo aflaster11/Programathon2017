@@ -49,7 +49,7 @@
                     <form>
                         <div class="form-group has-danger">
                             <label class="form-control-label" for="inputDanger1">Nombre del Evento</label>
-                            <input type="text" class="form-control form-control-danger" id="inputDanger1">
+                            <input type="text" class="form-control form-control-danger" id="inputDanger1" required>
                                 <small class="form-text text-muted">Requisito para crear el evento.</small>
                         </div>
                         
@@ -65,19 +65,19 @@
                         </div>
                         <fieldset class="form-group">
                             <label>Tipo de Votación</label>
-                            <div class="form-check">
+                            <div class="form-check text-left">
                                 <label class="form-check-label">
                                     <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked>
                                         Papeleta
                                         </label>
                             </div>
-                            <div class="form-check">
+                            <div class="form-check text-left">
                                 <label class="form-check-label">
                                     <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">
                                         Referendum
                                         </label>
                             </div>
-                            <div class="form-check">
+                            <div class="form-check text-left">
                                 <label class="form-check-label">
                                     <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">
                                         Opción Múltiple
@@ -86,29 +86,45 @@
                             
                         </fieldset>
                         
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputCity" class="col-form-label">City</label>
-                                <input type="text" class="form-control" id="inputCity">
-                                    </div>
-                            <div class="form-group col-md-4">
-                                <label for="inputState" class="col-form-label">State</label>
-                                <select id="inputState" class="form-control">Choose</select>
+                        <fieldset class="form-group">
+                            <label>Tipo de Voto</label>
+                            <div class="form-check text-left">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                        Público
+                                        </label>
                             </div>
-                            <div class="form-group col-md-2">
-                                <label for="inputZip" class="col-form-label">Zip</label>
-                                <input type="text" class="form-control" id="inputZip">
-                                    </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Crear Evento</button>
-                    </form>
+                            <div class="form-check text-left">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">
+                                        Privado
+                                        </label>
+                            </div>
+                        </fieldset>
+                        
+                        <fieldset class="form-group">
+                            <label>Avances</label>
+                            <div class="form-check text-left">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                        Sí
+                                        </label>
+                            </div>
+                            <div class="form-check text-left">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">
+                                        No
+                                        </label>
+                            </div>
+                        </fieldset>
+                    </p>
+                
                 </div>
-                
-                </p>
-                
-
+                <button type="submit" class="btn btn-primary">Crear Evento</button>
+              </div>
             </div>
         </div>
+              
         <div class="container"    >
             <h4>Descripción de la aplicación web</h4>
             <p> </p>
