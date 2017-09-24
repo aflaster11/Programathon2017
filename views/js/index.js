@@ -1,3 +1,6 @@
+var axios = require('axios');
+
+/*
 var REST_DATA = 'api/favorites';
 var defaultItems = [
 
@@ -5,8 +8,49 @@ var defaultItems = [
 function encodeUriAndQuotes(untrustedStr) {
     return encodeURI(String(untrustedStr)).replace(/'/g, '%27').replace(')', '%29');
 }
+function loadItems() {
+    xhrGet(REST_DATA, function(data) {
+
+        var receivedItems = data || [];
+        var items = [];
+        var i;
+        // Make sure the received items have correct format
+        for (i = 0; i < receivedItems.length; ++i) {
+            var item = receivedItems[i];
+            if (item && 'id' in item) {
+                items.push(item);
+            }
+        }
+        console.log(items);
+        /*
+        var hasItems = items.length;
+        if (!hasItems) {
+            items = defaultItems;
+        }
+        for (i = 0; i < items.length; ++i) {
+            addItem(items[i], !hasItems);
+        }
+        if (!hasItems) {
+            var table = document.getElementById('notes');
+            var nodes = [];
+            for (i = 0; i < table.rows.length; ++i) {
+                nodes.push(table.rows[i].firstChild.firstChild);
+            }
+
+            function save() {
+                if (nodes.length) {
+                    saveChange(nodes.shift(), save);
+                }
+            }
+            save();
+        } */
+/*    }, function(err) {
+        console.error(err);
+    });
+}
 
 //Cosas de Berta
+
 function handleFileSelect(evt) {
     evt.stopPropagation();
     evt.preventDefault();
@@ -34,3 +78,4 @@ function handleDragOver(evt) {
 var dropZone = document.getElementById('drop_zone');
 dropZone.addEventListener('dragover', handleDragOver, false);
 dropZone.addEventListener('drop', handleFileSelect, false);
+*/

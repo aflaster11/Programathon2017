@@ -7,7 +7,7 @@ var express = require('express'),
     user = require('./routes/user'),
     http = require('http'),
     path = require('path'),
-    fs = require('fs');
+    fs = require('fs'),
     web = require('web3')
 
 var app = express();
@@ -92,6 +92,7 @@ function initDBConnection() {
 initDBConnection();
 //Rutas
 app.get('/', routes.index); //Home
+
 app.get('/login', function (req, res) {
   res.render('login.html', { title: 'Hey'})
 })
