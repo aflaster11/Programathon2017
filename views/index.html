@@ -5,13 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<script>
-			if (typeof web3 !== 'undefined') {
-			  contractCon = new Web3(web3.currentProvider);
-			} else {
-			  // set the provider you want from Web3.providers
-			  contractCon = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-			}
+    <script>
+			var web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
 			console.log(contractCon);
 		</script>
         <title>YoElijo</title>
