@@ -14,13 +14,5 @@ function crearEvento(){
 	avances = $("input[name=optionsRadios2]:checked").val();
 	valueToSave = $("input[name=optionsRadios3]:checked").val();
 	
-	if(!valueToSave){
-		alert("Seleccione si quiere o no avance");
-	}
-	
-	if
-}
-
-function fechasCorrectas(){
-	
+	console.log();
 }
