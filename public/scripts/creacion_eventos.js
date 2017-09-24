@@ -4,13 +4,15 @@ var fechaConclusion; //Int??
 var tipoDeVoto; //Bool>>
 var avances; //Bool??
 var valueToSave; //Bool??
+var listaVotantes; // Vector con los votantes
 
 function crearEvento(){
 	nombreDelEvento = document.getElementById("NombreEvento");
 	var primerFecha = document.getElementById("Inicio").value;
 	var segundaFecha = document.getElementById("Conclusion").value;
+	listaVotantes = listaVotantes.split("-");
 	
-	if(nombreDelEvento == undefined || primerFecha == undefined || segundaFecha == undefined){
+	if(nombreDelEvento == undefined || primerFecha == "" || segundaFecha == ""){
 		alert("Falta rellenar espacios");
 		return;
 	}
@@ -28,8 +30,6 @@ function crearEvento(){
 	tipoDeVoto = $("input[name=optionsRadios1]:checked").val();
 	avances = $("input[name=optionsRadios2]:checked").val();
 	valueToSave = $("input[name=optionsRadios3]:checked").val();
-	
-	console.log(tipoDeVoto + " " + avances + " " + valueToSave);
 }
 
 function cumpleReq(pFecha,sFecha){
@@ -55,4 +55,18 @@ function cumpleReq(pFecha,sFecha){
 	}
 	
 	return cumple;
+}
+
+function resiveVotantes(votantes){
+	listaVotantes+= votantes + "-";
+}
+
+function generatePassword() {
+    var length = 8,
+        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+        retVal = "";
+    for (var i = 0, n = charset.length; i < length; ++i) {
+        retVal += charset.charAt(Math.floor(Math.random() * n));
+    }
+    return retVal;
 }
