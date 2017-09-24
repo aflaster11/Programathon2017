@@ -1,7 +1,12 @@
-<div id="drop_zone">Drop files here</div>
-<output id="list"></output>
+var REST_DATA = 'api/favorites';
+var defaultItems = [
 
-<script>
+];
+function encodeUriAndQuotes(untrustedStr) {
+    return encodeURI(String(untrustedStr)).replace(/'/g, '%27').replace(')', '%29');
+}
+
+//Cosas de Berta
 function handleFileSelect(evt) {
     evt.stopPropagation();
     evt.preventDefault();
@@ -29,4 +34,3 @@ function handleDragOver(evt) {
 var dropZone = document.getElementById('drop_zone');
 dropZone.addEventListener('dragover', handleDragOver, false);
 dropZone.addEventListener('drop', handleFileSelect, false);
-</script>
