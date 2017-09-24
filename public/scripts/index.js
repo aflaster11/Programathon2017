@@ -1,4 +1,4 @@
-var axios = require('axios');
+
 
 /*
 var REST_DATA = 'api/favorites';
