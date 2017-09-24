@@ -25,8 +25,8 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
-app.get('/addUser'){
-    var sql = 'S';
+app.get('/addUser', function(req, res)=>{
+    var sql = 'INSERT INTO USERS(Email, Passw) VALUE(?, SHA(?))',param1, param2 ;
     connection.query(sql, function(err, result){
         res.send('Anadir usuario');
     });
