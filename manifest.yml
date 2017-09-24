@@ -7,4 +7,4 @@ applications:
   host: yoelijo
   disk_quota: 1024M
   services:
-  - yoelijo-cloudantNoSQLDB
+  

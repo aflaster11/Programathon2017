@@ -1,23 +1,29 @@
 {
-  "name": "cloudant_boilerplate_nodejs",
-  "version": "0.0.2",
-  "private": true,
-  "scripts": {
-    "start": "node app.js"
-  },
+  "name": "stringcheese",
+  "version": "1.0.0",
+  "description": "Página Web de YoElijo",
+  "main": "app.js",
   "dependencies": {
-    "body-parser": "1.17.x",
-    "cloudant": "1.7.x",
-    "connect-multiparty": "2.0.x",
-    "ejs": "2.5.x",
-    "errorhandler": "1.5.x",
-    "express": "4.15.x",
-    "method-override": "2.3.x",
-    "morgan": "1.8.x",
-    "nodemailer": "^4.1.0"
+
+      
   },
-  "repository": {},
-  "engines": {
-    "node": "6.x"
-  }
+  "devDependencies": {},
+  "scripts": {
+    "test": "node app.js "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PauloBarrantes/StringCheese.git"
+  },
+  "keywords": [
+    "#Programathon",
+    "#fml",
+    "#noSeHacerDB"
+  ],
+  "author": "String Cheese",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PauloBarrantes/StringCheese/issues"
+  },
+  "homepage": "https://github.com/PauloBarrantes/StringCheese#readme"
 }
