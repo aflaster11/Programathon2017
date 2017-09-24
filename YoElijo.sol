@@ -19,17 +19,17 @@ contract owned {
 
 contract TokenDeVot is owned{
     address dir;
-    
+
     function TokenDeVot(address _dir){
         dir = _dir;
     }
-    
+
     event transferToken(address _form, address _to);
-    
+
     function trasferForm (Votante _from, Opcion _to) public{
         _to.addToken(_from.getToken());
     }
-    
+
     function getDir() public onlyOwner returns (address) {
         return dir;
     }
@@ -37,17 +37,17 @@ contract TokenDeVot is owned{
 
 contract manejadorDeTokens is owned{
     TokenDeVot[] public tokensDeVot;
-    
+
     function addToken(TokenDeVot t) public{
         tokensDeVot[tokensDeVot.length++] = t;
     }
-    
+
     function getToken() public onlyOwner returns (TokenDeVot) {
         return tokensDeVot[tokensDeVot.length-1];
     }
-    
+
     function removeToken() public onlyOwner{
-        delete tokensDeVot[tokensDeVot.length-1]; 
+        delete tokensDeVot[tokensDeVot.length-1];
     }
 }
 
@@ -55,7 +55,7 @@ contract Votante is manejadorDeTokens{
     bytes32 correoElectronico;
     address direccionEth;
     mapping (bytes32 => address) dirToken;
-    
+
     function Votante(address _nuevoVotante, bytes32 _correoVotante){
         direccionEth = _nuevoVotante;
         correoElectronico = _correoVotante;
@@ -73,6 +73,7 @@ contract ProcesoVotacion is owned{
     uint constant PAPELETA = 0;
     uint constant REFERENDUM = 1;
     uint constant OPCION_MULTIPLE = 2;
+    uint tipoVotacion;
     bool votoPublico = false;
     bool avances = false;
     Votante[] public votantes;
@@ -97,4 +98,19 @@ contract ProcesoVotacion is owned{
         votantes.length--;
     }
 
+    function ProcesoVotacion(bytes32 _nombreProceso){
+      nombreProceso = _nombreProceso;
+    }
+
+    function setVotoPublico(bool _votoPublico){
+      votoPublico = _votoPublico
+    }
+
+    function setAvances(bool _avances){
+      avances = _avances;
+    }
+
+    function setTipoVotacion(uint _tipoVotacion){
+      tipoVotacion = _tipoVotacion;
+    }
 }
