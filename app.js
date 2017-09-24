@@ -280,7 +280,11 @@ app.post('/api/favorites', function(request, response) {
 
     console.log("Create Invoked..");
 <<<<<<< HEAD
+<<<<<<< HEAD
     console.log("Nombre del proceso electoral: " + request.body.name);
+=======
+    console.log("Name" + request.body.name);
+>>>>>>> 63e8b4f1b6fe0de738ffbf4ee47ed4b426a6825b
 =======
     console.log("Name" + request.body.name);
 >>>>>>> 63e8b4f1b6fe0de738ffbf4ee47ed4b426a6825b
