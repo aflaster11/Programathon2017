@@ -10,9 +10,6 @@ function crearEvento(){
 	var primerFecha = document.getElementById("Inicio").value;
 	var segundaFecha = document.getElementById("Conclusion").value;
 	
-	console.log(primerFecha);
-	console.log(segundaFecha);
-	
 	if(nombreDelEvento == undefined || primerFecha == undefined || segundaFecha == undefined){
 		alert("Falta rellenar espacios");
 		return;
@@ -45,14 +42,14 @@ function cumpleReq(pFecha,sFecha){
 	}
 	
 	if(parseInt(pFecha[pFecha.length-1]) >= parseInt(sFecha[sFecha.length-1]) || !cumple){
+		cumple = false;
 		alert("La hora inicio debe ser menor a la hora de finalizacion");
 	}
 	
 	
 	
 	var currentDate = new Date();
-	console.log(currentDate.getMonth());
-	if(parseInt(pFecha[0]) <= currentDate.getYear()+1900|| parseInt(pFecha[1]) <= currentDate.getMonth() || parseInt(pFecha[2]) <= currentDate.getDate() || parseInt(pFecha[3]) <= currentDate.getHours() || parseInt(pFecha[4]) <= currentDate.getMinutes()){
+	if(cumple && (parseInt(pFecha[0]) <= currentDate.getYear()+1900|| parseInt(pFecha[1]) <= currentDate.getMonth() || parseInt(pFecha[2]) <= currentDate.getDate() || parseInt(pFecha[3]) <= currentDate.getHours() || parseInt(pFecha[4]) <= currentDate.getMinutes())){
 		alert("La hora deinicio debe ser mayor a la fecha actual");
 		cumple = false;
 	}
