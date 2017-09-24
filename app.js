@@ -102,18 +102,29 @@ app.get('/login', function (req, res) {
 })
 //Cambios Paulo
 app.use('/admin', function(req, res){
-    res.send('hello world');
+    res.render('login.html', { title: 'Hey'})
 });
 //Cambios
 
-function createResponseData(id, correo, password,) {
+function createResponseData(id, name, value, attachments) {
 
     var responseData = {
         id: id,
-        correo: sanitizeInput(correo),
-        password: sanitizeInput(password),
+        name: sanitizeInput(name),
+        value: sanitizeInput(value),
+        attachements: []
     };
 
+
+    attachments.forEach(function(item, index) {
+        var attachmentData = {
+            content_type: item.type,
+            key: item.key,
+            url: '/api/favorites/attach?id=' + id + '&key=' + item.key
+        };
+        responseData.attachements.push(attachmentData);
+
+    });
     return responseData;
 }
 
@@ -121,7 +132,7 @@ function sanitizeInput(str) {
     return String(str).replace(/&(?!amp;|lt;|gt;)/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
-var saveDocument = function(id, correo, password, response) {
+var saveDocument = function(id, name, value, response) {
 
     if (id === undefined) {
         // Generated random id
@@ -129,8 +140,8 @@ var saveDocument = function(id, correo, password, response) {
     }
 
     db.insert({
-        correo: correo,
-        password: password
+        name: name,
+        value: value
     }, id, function(err, doc) {
         if (err) {
             console.log(err);
@@ -141,6 +152,27 @@ var saveDocument = function(id, correo, password, response) {
     });
 
 }
+
+app.get('/api/favorites/attach', function(request, response) {
+    var doc = request.query.id;
+    var key = request.query.key;
+
+    db.attachment.get(doc, key, function(err, body) {
+        if (err) {
+            response.status(500);
+            response.setHeader('Content-Type', 'text/plain');
+            response.write('Error: ' + err);
+            response.end();
+            return;
+        }
+        response.status(200);
+        response.setHeader("Content-Disposition", 'inline; filename="' + key + '"');
+        response.write(body);
+        response.end();
+        return;
+    });
+});
+
 app.post('/api/favorites/attach', multipartMiddleware, function(request, response) {
 
     console.log("Upload File Invoked..");
@@ -158,18 +190,52 @@ app.post('/api/favorites/attach', multipartMiddleware, function(request, respons
             isExistingDoc = true;
         }
 
-        var correo = sanitizeInput(request.query.correo);
-        var password = sanitizeInput(request.query.password);
+        var name = sanitizeInput(request.query.name);
+        var value = sanitizeInput(request.query.value);
 
         var file = request.files.file;
-        var newPath = './public/uploads/' + file.correo;
+        var newPath = './public/uploads/' + file.name;
 
-        var responseData = createResponseData(
-              id,
-              correo,
-              password);
-              response.write(JSON.stringify(responseData));
-              response.end();
+        var insertAttachment = function(file, id, rev, name, value, response) {
+
+            fs.readFile(file.path, function(err, data) {
+                if (!err) {
+
+                    if (file) {
+
+                        db.attachment.insert(id, file.name, data, file.type, {
+                            rev: rev
+                        }, function(err, document) {
+                            if (!err) {
+                                console.log('Attachment saved successfully.. ');
+
+                                db.get(document.id, function(err, doc) {
+                                    console.log('Attachements from server --> ' + JSON.stringify(doc._attachments));
+
+                                    var attachements = [];
+                                    var attachData;
+                                    for (var attachment in doc._attachments) {
+                                        if (attachment == value) {
+                                            attachData = {
+                                                "key": attachment,
+                                                "type": file.type
+                                            };
+                                        } else {
+                                            attachData = {
+                                                "key": attachment,
+                                                "type": doc._attachments[attachment]['content_type']
+                                            };
+                                        }
+                                        attachements.push(attachData);
+                                    }
+                                    var responseData = createResponseData(
+                                        id,
+                                        name,
+                                        value,
+                                        attachements);
+                                    console.log('Response after attachment: \n' + JSON.stringify(responseData));
+                                    response.write(JSON.stringify(responseData));
+                                    response.end();
                                     return;
                                 });
                             } else {
@@ -183,15 +249,15 @@ app.post('/api/favorites/attach', multipartMiddleware, function(request, respons
 
         if (!isExistingDoc) {
             existingdoc = {
-                correo: correo,
-                password: password,
+                name: name,
+                value: value,
                 create_date: new Date()
             };
 
             // save doc
             db.insert({
-                correo: correo,
-                password: password
+                name: name,
+                value: value
             }, '', function(err, doc) {
                 if (err) {
                     console.log(err);
@@ -200,6 +266,7 @@ app.post('/api/favorites/attach', multipartMiddleware, function(request, respons
                     existingdoc = doc;
                     console.log("New doc created ..");
                     console.log(existingdoc);
+                    insertAttachment(file, existingdoc.id, existingdoc.rev, name, value, response);
 
                 }
             });
@@ -207,7 +274,7 @@ app.post('/api/favorites/attach', multipartMiddleware, function(request, respons
         } else {
             console.log('Adding attachment to existing doc.');
             console.log(existingdoc);
-            insertAttachment(file, existingdoc._id, existingdoc._rev, correo, password, response);
+            insertAttachment(file, existingdoc._id, existingdoc._rev, name, value, response);
         }
 
     });
@@ -217,16 +284,16 @@ app.post('/api/favorites/attach', multipartMiddleware, function(request, respons
 app.post('/api/favorites', function(request, response) {
 
     console.log("Create Invoked..");
-    console.log("correo: " + request.body.correo);
-    console.log("correo" + request.body.correo);
-    console.log("correo" + request.body.correo);
-    console.log("password: " + request.body.password);
+    console.log("Nombre del proceso electoral: " + request.body.name);
+    console.log("Name" + request.body.name);
+    console.log("Name" + request.body.name);
+    console.log("Value: " + request.body.value);
 
     var id = request.body.id;
-    var correo = sanitizeInput(request.body.correo);
-    var password = sanitizeInput(request.body.password);
+    var name = sanitizeInput(request.body.name);
+    var value = sanitizeInput(request.body.value);
 
-    saveDocument(null, correo, password, response);
+    saveDocument(null, name, value, response);
 
 });
 
@@ -262,8 +329,8 @@ app.put('/api/favorites', function(request, response) {
     console.log("Update Invoked..");
 
     var id = request.body.id;
-    var correo = sanitizeInput(request.body.correo);
-    var password = sanitizeInput(request.body.password);
+    var name = sanitizeInput(request.body.name);
+    var value = sanitizeInput(request.body.value);
 
     console.log("ID: " + id);
 
@@ -272,8 +339,8 @@ app.put('/api/favorites', function(request, response) {
     }, function(err, doc) {
         if (!err) {
             console.log(doc);
-            doc.correo = correo;
-            doc.password= password;
+            doc.name = name;
+            doc.value = value;
             db.insert(doc, doc.id, function(err, doc) {
                 if (err) {
                     console.log('Error inserting data\n' + err);
@@ -302,8 +369,8 @@ app.get('/api/favorites', function(request, response) {
                 var docName = 'sample_doc';
                 var docDesc = 'A sample Document';
                 db.insert({
-                    correo: docName,
-                    password: 'A sample Document'
+                    name: docName,
+                    value: 'A sample Document'
                 }, '', function(err, doc) {
                     if (err) {
                         console.log(err);
@@ -344,15 +411,15 @@ app.get('/api/favorites', function(request, response) {
                                 }
                                 var responseData = createResponseData(
                                     doc._id,
-                                    doc.correo,
-                                    doc.password
-                                    );
+                                    doc.name,
+                                    doc.value,
+                                    attachments);
 
                             } else {
                                 var responseData = createResponseData(
                                     doc._id,
-                                    doc.correp,
-                                    doc.password);
+                                    doc.name,
+                                    doc.value, []);
                             }
 
                             docList.push(responseData);
