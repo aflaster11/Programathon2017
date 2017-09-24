@@ -38,21 +38,24 @@ function crearEvento(){
 function cumpleReq(pFecha,sFecha){
 	var cumple = true;
 	
-	console.log("h");
 	for(var i=0;i < pFecha.length-1 || !cumple;++i){
 		if(parseInt(pFecha[i]) > parseInt(sFecha[i])){
 			cumple = false;
 		}
 	}
 	
-	console.log("h");
 	if(parseInt(pFecha[pFecha.length-1]) >= parseInt(sFecha[sFecha.length-1]) || !cumple){
 		alert("La hora inicio debe ser menor a la hora de finalizacion");
 	}
 	
-	var currentDate = new Date();
-	console.log(currentDate.getMinutes());
 	
-	console.log("h");
+	
+	var currentDate = new Date();
+	console.log(currentDate.getMonth());
+	if(parseInt(pFecha[0]) <= currentDate.getYear()+1900|| parseInt(pFecha[1]) <= currentDate.getMonth() || parseInt(pFecha[2]) <= currentDate.getDate() || parseInt(pFecha[3]) <= currentDate.getHours() || parseInt(pFecha[4]) <= currentDate.getMinutes()){
+		alert("La hora deinicio debe ser mayor a la fecha actual");
+		cumple = false;
+	}
+	
 	return cumple;
 }
