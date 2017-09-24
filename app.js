@@ -8,6 +8,7 @@ var express = require('express'),
     http = require('http'),
     path = require('path'),
     fs = require('fs');
+    web = require('web3')
 
 var app = express();
 
