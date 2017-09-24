@@ -8,7 +8,6 @@ var express = require('express'),
     http = require('http'),
     path = require('path'),
     fs = require('fs');
-    const nodemailer = require('nodemailer');
 
 var app = express();
 
@@ -19,8 +18,7 @@ var cloudant;
 var fileToUpload;
 
 var dbCredentials = {
-    dbName: 'usuarios_pass',
-    dbAdmin: 'admin_pass'
+    dbName: 'my_sample_db'
 };
 
 var bodyParser = require('body-parser');
@@ -273,7 +271,7 @@ app.post('/api/favorites/attach', multipartMiddleware, function(request, respons
 app.post('/api/favorites', function(request, response) {
 
     console.log("Create Invoked..");
-    console.log("Nombre del proceso elctoral: " + request.body.name);
+    console.log("Name" + request.body.name);
     console.log("Value: " + request.body.value);
 
     // var id = request.body.id;
