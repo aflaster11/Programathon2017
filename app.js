@@ -8,7 +8,6 @@ var express = require('express'),
     http = require('http'),
     path = require('path'),
     fs = require('fs');
-    const nodemailer = require('nodemailer');
 
 var app = express();
 
@@ -19,8 +18,7 @@ var cloudant;
 var fileToUpload;
 
 var dbCredentials = {
-    dbName: 'usuarios_pass',
-    dbAdmin: 'admin_pass'
+    dbName: 'my_sample_db'
 };
 
 var bodyParser = require('body-parser');
@@ -94,6 +92,15 @@ initDBConnection();
 
 app.get('/', routes.index);
 
+app.get('/random.text', function (req, res) {
+  res.send('random.text');
+});
+
+app.use('/admin', function(req, res){
+    res.send('hello world');
+
+});
+
 function createResponseData(id, name, value, attachments) {
 
     var responseData = {
@@ -153,7 +160,6 @@ app.get('/api/favorites/attach', function(request, response) {
             response.end();
             return;
         }
-
         response.status(200);
         response.setHeader("Content-Disposition", 'inline; filename="' + key + '"');
         response.write(body);
@@ -273,10 +279,14 @@ app.post('/api/favorites/attach', multipartMiddleware, function(request, respons
 app.post('/api/favorites', function(request, response) {
 
     console.log("Create Invoked..");
-    console.log("Nombre del proceso elctoral: " + request.body.name);
+<<<<<<< HEAD
+    console.log("Nombre del proceso electoral: " + request.body.name);
+=======
+    console.log("Name" + request.body.name);
+>>>>>>> 63e8b4f1b6fe0de738ffbf4ee47ed4b426a6825b
     console.log("Value: " + request.body.value);
 
-    // var id = request.body.id;
+    var id = request.body.id;
     var name = sanitizeInput(request.body.name);
     var value = sanitizeInput(request.body.value);
 

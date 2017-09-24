@@ -1,4 +1,12 @@
+var REST_DATA = 'api/favorites';
+var defaultItems = [
 
+];
+function encodeUriAndQuotes(untrustedStr) {
+    return encodeURI(String(untrustedStr)).replace(/'/g, '%27').replace(')', '%29');
+}
+
+//Cosas de Berta
 function handleFileSelect(evt) {
     evt.stopPropagation();
     evt.preventDefault();
