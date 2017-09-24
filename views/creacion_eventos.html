@@ -54,18 +54,17 @@
                                 <small class="form-text text-muted">Requisito para crear el evento.</small>
                         </div>
                         
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="inputEmail4" class="col-form-label">Fecha de Inicio</label>
-                                Date:<input id="date" type="date" name="task_date" />
-								Time:<input id="time" type="time" name="task_time" />
-                                    </div>
-                            <div class="form-group col-md-6">
-                                <label for="inputPassword4" class="col-form-label">Fecha de Conclusión</label>
-                                Date:<input id="date" type="date" name="task_date" />
-								Time:<input id="time" type="time" name="task_time" />
-                                    </div>
+                        <div class="input-append date form_datetime">
+                            <input size="16" type="text" value="">
+                                <span class="add-on"><i class="icon-th"></i></span>
                         </div>
+                        
+                        <script type="text/javascript">
+                            $(".form_datetime").datetimepicker({
+                                                               format: "dd MM yyyy - hh:ii"
+                                                               });
+                            </script>
+                       
                         <fieldset class="form-group">
                             <label>Tipo de Votación</label>
                             <div class="form-check text-left">
