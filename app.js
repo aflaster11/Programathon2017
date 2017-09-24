@@ -90,8 +90,10 @@ function initDBConnection() {
 }
 
 initDBConnection();
+/*
 var web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
 console.log(web3);
+*/
 //Rutas
 app.get('/', routes.index); //Home
 
@@ -151,7 +153,7 @@ var saveDocument = function(id, name, value, response) {
 
 }
 
-app.get('/api/favorites/Xattach', function(request, response) {
+app.get('/api/favorites/attach', function(request, response) {
     var doc = request.query.id;
     var key = request.query.key;
 
