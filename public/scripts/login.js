@@ -1,8 +1,14 @@
 alert();
+var $ = JQuery;
 var REST_DATA = 'api/favorites';
 var defaultItems = [
 
 ];
+
+
+function verificar_email_pass(){
+
+}
 function loadItems() {
     xhrGet(REST_DATA, function(data) {
         var receivedItems = data || [];
@@ -17,7 +23,6 @@ function loadItems() {
         }
         console.log(items);
         alert(items);
-
     }, function(err) {
         console.error(err);
     });
