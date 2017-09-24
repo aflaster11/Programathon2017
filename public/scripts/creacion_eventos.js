@@ -14,5 +14,5 @@ function crearEvento(){
 	avances = $("input[name=optionsRadios2]:checked").val();
 	valueToSave = $("input[name=optionsRadios3]:checked").val();
 	
-	console.log();
+	console.log(tipoDeVoto + " " + avances + " " + valueToSave);
 }
